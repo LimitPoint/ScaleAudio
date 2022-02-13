@@ -19,7 +19,7 @@ let kAudioReaderSettings = [
     AVLinearPCMIsNonInterleaved: false as AnyObject]
 
 let kAudioWriterExpectsMediaDataInRealTime = false
-let kReverseAudioQueue = "com.limit-point.scale-audio-queue"
+let kScaleAudioQueue = "com.limit-point.scale-audio-queue"
 
 extension Array {
     func blocks(size: Int) -> [[Element]] {
@@ -386,7 +386,7 @@ class ScaleAudio {
             return
         }
         
-        let serialQueue: DispatchQueue = DispatchQueue(label: kReverseAudioQueue)
+        let serialQueue: DispatchQueue = DispatchQueue(label: kScaleAudioQueue)
         
         assetWriter.startWriting()
         assetWriter.startSession(atSourceTime: CMTime.zero)
