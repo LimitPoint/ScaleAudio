@@ -55,6 +55,11 @@ extension Array where Element == Int16  {
             vDSP_vgenD(&base, &end, &control, stride, vDSP_Length(length))
         }
         
+        // for interpolation samples in app init
+        if control.count <= 16  { // limit to small arrays!
+            print("control = \(control)")
+        }
+        
         var result = [Double](repeating: 0,
                               count: length)
         
