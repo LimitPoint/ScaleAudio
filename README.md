@@ -20,13 +20,13 @@ The project is comprised of:
 2. And an [ObservableObject] (`ScaleAudioObservable`) that manages the user interaction to scale and play audio files in the list.
 3. The [AVFoundation] code (`ScaleAudio`) that reads, scales and writes audio files.
 
-### ReverseAudio
+### ScaleAudio
 
-Reversing audio is performed in 3 steps using [AVFoundation]:
+Scaling audio is performed in 3 steps using [AVFoundation]:
 
 1. Read the audio samples of all channels of an audio file, scale all and interleave into an `Array` of `[Int16]`
 2. Create an array of sample buffers [[CMSampleBuffer]] for the array of scaled audio samples
-3. Write the reversed sample buffers in [[CMSampleBuffer]] to a file
+3. Write the scaled sample buffers in [[CMSampleBuffer]] to a file
 
 The top level method that implements all of this, and is employed by the `ScaleAudioObservable` is: 
 
