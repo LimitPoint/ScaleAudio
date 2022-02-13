@@ -1,0 +1,522 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CD421D9427B7156600B8769C /* ScaleAudioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD421D8427B7156600B8769C /* ScaleAudioApp.swift */; };
+		CD421D9527B7156600B8769C /* ScaleAudioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD421D8427B7156600B8769C /* ScaleAudioApp.swift */; };
+		CD421D9627B7156600B8769C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD421D8527B7156600B8769C /* ContentView.swift */; };
+		CD421D9727B7156600B8769C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD421D8527B7156600B8769C /* ContentView.swift */; };
+		CD421D9827B7156600B8769C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD421D8627B7156600B8769C /* Assets.xcassets */; };
+		CD421D9927B7156600B8769C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD421D8627B7156600B8769C /* Assets.xcassets */; };
+		CD421DA327B717C500B8769C /* ScaleAudioObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD421DA227B717C500B8769C /* ScaleAudioObservable.swift */; };
+		CD421DA427B717C500B8769C /* ScaleAudioObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD421DA227B717C500B8769C /* ScaleAudioObservable.swift */; };
+		CD421DA727B7193300B8769C /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD421DA627B7193300B8769C /* HeaderView.swift */; };
+		CD421DA827B7193300B8769C /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD421DA627B7193300B8769C /* HeaderView.swift */; };
+		CD421DAA27B7194400B8769C /* FileTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD421DA927B7194400B8769C /* FileTableView.swift */; };
+		CD421DAB27B7194400B8769C /* FileTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD421DA927B7194400B8769C /* FileTableView.swift */; };
+		CD421DAD27B7195200B8769C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD421DAC27B7195200B8769C /* File.swift */; };
+		CD421DAE27B7195200B8769C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD421DAC27B7195200B8769C /* File.swift */; };
+		CD421DB027B7197400B8769C /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD421DAF27B7197400B8769C /* ActivityView.swift */; };
+		CD421DB127B7197400B8769C /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD421DAF27B7197400B8769C /* ActivityView.swift */; };
+		CD421DB327B719B900B8769C /* ScaleAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD421DB227B719B900B8769C /* ScaleAudio.swift */; };
+		CD421DB427B719B900B8769C /* ScaleAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD421DB227B719B900B8769C /* ScaleAudio.swift */; };
+		CD421DB627B719F800B8769C /* Audio Files in Resources */ = {isa = PBXBuildFile; fileRef = CD421DB527B719F800B8769C /* Audio Files */; };
+		CD421DB727B719F800B8769C /* Audio Files in Resources */ = {isa = PBXBuildFile; fileRef = CD421DB527B719F800B8769C /* Audio Files */; };
+		CD421DB927B71A0700B8769C /* Echo.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CD421DB827B71A0700B8769C /* Echo.m4a */; };
+		CD421DBA27B71A0700B8769C /* Echo.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CD421DB827B71A0700B8769C /* Echo.m4a */; };
+		CD895EA227B84D170029F1A2 /* AVAsset-extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD895EA127B84D170029F1A2 /* AVAsset-extensions.swift */; };
+		CD895EA327B84D170029F1A2 /* AVAsset-extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD895EA127B84D170029F1A2 /* AVAsset-extensions.swift */; };
+		CD895EA527B88CE80029F1A2 /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD895EA427B88CE80029F1A2 /* SliderView.swift */; };
+		CD895EA627B88CE80029F1A2 /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD895EA427B88CE80029F1A2 /* SliderView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CD421D8427B7156600B8769C /* ScaleAudioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleAudioApp.swift; sourceTree = "<group>"; };
+		CD421D8527B7156600B8769C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CD421D8627B7156600B8769C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CD421D8B27B7156600B8769C /* ScaleAudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScaleAudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD421D9127B7156600B8769C /* ScaleAudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScaleAudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD421D9327B7156600B8769C /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		CD421DA227B717C500B8769C /* ScaleAudioObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleAudioObservable.swift; sourceTree = "<group>"; };
+		CD421DA527B7188A00B8769C /* ScaleAudio--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "ScaleAudio--iOS--Info.plist"; sourceTree = "<group>"; };
+		CD421DA627B7193300B8769C /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		CD421DA927B7194400B8769C /* FileTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTableView.swift; sourceTree = "<group>"; };
+		CD421DAC27B7195200B8769C /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		CD421DAF27B7197400B8769C /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+		CD421DB227B719B900B8769C /* ScaleAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleAudio.swift; sourceTree = "<group>"; };
+		CD421DB527B719F800B8769C /* Audio Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Audio Files"; sourceTree = "<group>"; };
+		CD421DB827B71A0700B8769C /* Echo.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Echo.m4a; sourceTree = "<group>"; };
+		CD895EA127B84D170029F1A2 /* AVAsset-extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAsset-extensions.swift"; sourceTree = "<group>"; };
+		CD895EA427B88CE80029F1A2 /* SliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CD421D8827B7156600B8769C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD421D8E27B7156600B8769C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CD421D7E27B7156500B8769C = {
+			isa = PBXGroup;
+			children = (
+				CD421DA527B7188A00B8769C /* ScaleAudio--iOS--Info.plist */,
+				CD421D8327B7156600B8769C /* Shared */,
+				CD421D9227B7156600B8769C /* macOS */,
+				CD421D8C27B7156600B8769C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CD421D8327B7156600B8769C /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				CD421DAC27B7195200B8769C /* File.swift */,
+				CD421DA927B7194400B8769C /* FileTableView.swift */,
+				CD421DA627B7193300B8769C /* HeaderView.swift */,
+				CD421DAF27B7197400B8769C /* ActivityView.swift */,
+				CD895EA427B88CE80029F1A2 /* SliderView.swift */,
+				CD421D8427B7156600B8769C /* ScaleAudioApp.swift */,
+				CD421D8527B7156600B8769C /* ContentView.swift */,
+				CD421DA227B717C500B8769C /* ScaleAudioObservable.swift */,
+				CD421DB227B719B900B8769C /* ScaleAudio.swift */,
+				CD895EA127B84D170029F1A2 /* AVAsset-extensions.swift */,
+				CD421D8627B7156600B8769C /* Assets.xcassets */,
+				CD421DB827B71A0700B8769C /* Echo.m4a */,
+				CD421DB527B719F800B8769C /* Audio Files */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		CD421D8C27B7156600B8769C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CD421D8B27B7156600B8769C /* ScaleAudio.app */,
+				CD421D9127B7156600B8769C /* ScaleAudio.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CD421D9227B7156600B8769C /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				CD421D9327B7156600B8769C /* macOS.entitlements */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CD421D8A27B7156600B8769C /* ScaleAudio (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD421D9C27B7156600B8769C /* Build configuration list for PBXNativeTarget "ScaleAudio (iOS)" */;
+			buildPhases = (
+				CD421D8727B7156600B8769C /* Sources */,
+				CD421D8827B7156600B8769C /* Frameworks */,
+				CD421D8927B7156600B8769C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ScaleAudio (iOS)";
+			productName = "ScaleAudio (iOS)";
+			productReference = CD421D8B27B7156600B8769C /* ScaleAudio.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CD421D9027B7156600B8769C /* ScaleAudio (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD421D9F27B7156600B8769C /* Build configuration list for PBXNativeTarget "ScaleAudio (macOS)" */;
+			buildPhases = (
+				CD421D8D27B7156600B8769C /* Sources */,
+				CD421D8E27B7156600B8769C /* Frameworks */,
+				CD421D8F27B7156600B8769C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ScaleAudio (macOS)";
+			productName = "ScaleAudio (macOS)";
+			productReference = CD421D9127B7156600B8769C /* ScaleAudio.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CD421D7F27B7156500B8769C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				ORGANIZATIONNAME = "Limit Point LLC";
+				TargetAttributes = {
+					CD421D8A27B7156600B8769C = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					CD421D9027B7156600B8769C = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+				};
+			};
+			buildConfigurationList = CD421D8227B7156500B8769C /* Build configuration list for PBXProject "ScaleAudio" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CD421D7E27B7156500B8769C;
+			productRefGroup = CD421D8C27B7156600B8769C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CD421D8A27B7156600B8769C /* ScaleAudio (iOS) */,
+				CD421D9027B7156600B8769C /* ScaleAudio (macOS) */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CD421D8927B7156600B8769C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD421DB627B719F800B8769C /* Audio Files in Resources */,
+				CD421D9827B7156600B8769C /* Assets.xcassets in Resources */,
+				CD421DB927B71A0700B8769C /* Echo.m4a in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD421D8F27B7156600B8769C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD421DB727B719F800B8769C /* Audio Files in Resources */,
+				CD421D9927B7156600B8769C /* Assets.xcassets in Resources */,
+				CD421DBA27B71A0700B8769C /* Echo.m4a in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CD421D8727B7156600B8769C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD895EA227B84D170029F1A2 /* AVAsset-extensions.swift in Sources */,
+				CD421DA327B717C500B8769C /* ScaleAudioObservable.swift in Sources */,
+				CD421DAD27B7195200B8769C /* File.swift in Sources */,
+				CD421D9627B7156600B8769C /* ContentView.swift in Sources */,
+				CD421D9427B7156600B8769C /* ScaleAudioApp.swift in Sources */,
+				CD421DB027B7197400B8769C /* ActivityView.swift in Sources */,
+				CD421DB327B719B900B8769C /* ScaleAudio.swift in Sources */,
+				CD421DA727B7193300B8769C /* HeaderView.swift in Sources */,
+				CD421DAA27B7194400B8769C /* FileTableView.swift in Sources */,
+				CD895EA527B88CE80029F1A2 /* SliderView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD421D8D27B7156600B8769C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD895EA327B84D170029F1A2 /* AVAsset-extensions.swift in Sources */,
+				CD421DA427B717C500B8769C /* ScaleAudioObservable.swift in Sources */,
+				CD421DAE27B7195200B8769C /* File.swift in Sources */,
+				CD421D9727B7156600B8769C /* ContentView.swift in Sources */,
+				CD421D9527B7156600B8769C /* ScaleAudioApp.swift in Sources */,
+				CD421DB127B7197400B8769C /* ActivityView.swift in Sources */,
+				CD421DB427B719B900B8769C /* ScaleAudio.swift in Sources */,
+				CD421DA827B7193300B8769C /* HeaderView.swift in Sources */,
+				CD421DAB27B7194400B8769C /* FileTableView.swift in Sources */,
+				CD895EA627B88CE80029F1A2 /* SliderView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CD421D9A27B7156600B8769C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CD421D9B27B7156600B8769C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		CD421D9D27B7156600B8769C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GZABHNF58X;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ScaleAudio--iOS--Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.limit-point.ScaleAudio";
+				PRODUCT_NAME = ScaleAudio;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CD421D9E27B7156600B8769C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GZABHNF58X;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ScaleAudio--iOS--Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.limit-point.ScaleAudio";
+				PRODUCT_NAME = ScaleAudio;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CD421DA027B7156600B8769C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GZABHNF58X;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.limit-point.ScaleAudio";
+				PRODUCT_NAME = ScaleAudio;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		CD421DA127B7156600B8769C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GZABHNF58X;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.limit-point.ScaleAudio";
+				PRODUCT_NAME = ScaleAudio;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CD421D8227B7156500B8769C /* Build configuration list for PBXProject "ScaleAudio" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD421D9A27B7156600B8769C /* Debug */,
+				CD421D9B27B7156600B8769C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD421D9C27B7156600B8769C /* Build configuration list for PBXNativeTarget "ScaleAudio (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD421D9D27B7156600B8769C /* Debug */,
+				CD421D9E27B7156600B8769C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD421D9F27B7156600B8769C /* Build configuration list for PBXNativeTarget "ScaleAudio (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD421DA027B7156600B8769C /* Debug */,
+				CD421DA127B7156600B8769C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CD421D7F27B7156500B8769C /* Project object */;
+}
