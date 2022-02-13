@@ -25,7 +25,7 @@ The project is comprised of:
 Scaling audio is performed in 3 steps using [AVFoundation]:
 
 1. Read the audio samples of all channels of an audio file, scale all and interleave into an `Array` of `[Int16]`
-2. Create an array of sample buffers [[CMSampleBuffer]] for the array of scaled audio samples
+2. Create an array of sample buffers [[CMSampleBuffer]] for the array of interleaved scaled audio samples
 3. Write the scaled sample buffers in [[CMSampleBuffer]] to a file
 
 The top level method that implements all of this, and is employed by the `ScaleAudioObservable` is: 
