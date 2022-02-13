@@ -38,11 +38,9 @@ extension Array where Element == Int16  {
         
         let stride = vDSP_Stride(1)
         var control:[Double]
-        
-        let array = self as [Int16]
-        
-        if smoothly, length > array.count {
-            let denominator = Double(length) / Double(array.count - 1)
+                
+        if smoothly, length > self.count {
+            let denominator = Double(length) / Double(self.count - 1)
             
             control = (0...length).map {
                 let x = Double($0) / denominator
@@ -51,7 +49,7 @@ extension Array where Element == Int16  {
         }
         else {
             var base: Double = 0
-            var end = Double(array.count - 1)
+            var end = Double(self.count - 1)
             control = [Double](repeating: 0, count: length)
             
             vDSP_vgenD(&base, &end, &control, stride, vDSP_Length(length))
@@ -60,7 +58,7 @@ extension Array where Element == Int16  {
         var result = [Double](repeating: 0,
                               count: length)
         
-        let double_array = vDSP.integerToFloatingPoint(array, floatingPointType: Double.self)
+        let double_array = vDSP.integerToFloatingPoint(self, floatingPointType: Double.self)
         
         vDSP_vlintD(double_array,
                     control, stride,
@@ -73,11 +71,9 @@ extension Array where Element == Int16  {
     
     func extract_array_channel(channelIndex:Int, channelCount:Int) -> [Int16]? {
         
-        let array = self as [Int16]
+        guard channelIndex >= 0, channelIndex < channelCount, self.count > 0 else { return nil }
         
-        guard channelIndex >= 0, channelIndex < channelCount, array.count > 0 else { return nil }
-        
-        let channel_array_length = array.count / channelCount
+        let channel_array_length = self.count / channelCount
         
         guard channel_array_length > 0 else { return nil }
         
@@ -85,7 +81,7 @@ extension Array where Element == Int16  {
         
         for index in 0...channel_array_length-1 {
             let array_index = channelIndex + index * channelCount
-            channel_array[index] = array[array_index]
+            channel_array[index] = self[array_index]
         }
         
         return channel_array
