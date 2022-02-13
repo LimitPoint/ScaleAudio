@@ -177,7 +177,7 @@ class ScaleAudio {
                             
                             if bufferSize == 0 {
                                 channelCount = Int(audioStreamBasicDescription.mChannelsPerFrame)
-                                bufferSize = bufferSamples.count / channelCount
+                                bufferSize = bufferSamples.count
                                 sampleRate = Int(audioStreamBasicDescription.mSampleRate)
                                 
                                 audioSamples = [[Int16]](repeating: [], count: channelCount)
