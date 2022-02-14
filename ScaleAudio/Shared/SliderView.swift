@@ -13,14 +13,13 @@ struct SliderView: View {
     @ObservedObject var scaleAudioObservable: ScaleAudioObservable
     
     @State private var isEditing = false
-    // "\(scaleAudioObservable.factor)"
     var body: some View {
         VStack {
             Slider(
                 value: $scaleAudioObservable.factor,
                 in: 0.1...2
             ) {
-                Text("Speed")
+                Text("Factor")
             } minimumValueLabel: {
                 Text("0.1")
             } maximumValueLabel: {
