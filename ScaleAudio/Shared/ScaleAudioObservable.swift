@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 let kAudioFilesSubdirectory = "Audio Files"
-let kAudioExtensions: [String] = ["aac", "m4a", "aiff", "aif", "wav", "mp3", "caf", "m4r", "flac"]
+let kAudioExtensions: [String] = ["aac", "m4a", "aiff", "aif", "wav", "mp3", "caf", "m4r", "flac","mp4"]
 
 class ScaleAudioObservable: ObservableObject  {
     
