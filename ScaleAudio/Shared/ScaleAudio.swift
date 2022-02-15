@@ -142,11 +142,17 @@ class ScaleAudio {
         return nil
     }
     
-    func readAndScaleAudioSamples(asset:AVAsset, factor:Double, progress: @escaping (Float, String) -> ()) -> (Int, Int, Int, [Int16]?)? {
+    func readAndScaleAudioSamples(asset:AVAsset, factor:Double, singleChannel:Bool, progress: @escaping (Float, String) -> ()) -> (Int, Int, Int, [Int16]?)? {
         
         progress(0, "Reading audio:")
         
-        let (_, reader, readerOutput) = self.audioReader(asset:asset, outputSettings: kAudioReaderSettings)
+        var outputSettings:[String : Any] = kAudioReaderSettings
+        
+        if singleChannel {
+            outputSettings[AVNumberOfChannelsKey] = 1 as AnyObject
+        }
+        
+        let (_, reader, readerOutput) = self.audioReader(asset:asset, outputSettings: outputSettings)
         
         guard let audioReader = reader,
               let audioReaderOutput = readerOutput
@@ -453,9 +459,9 @@ class ScaleAudio {
         }
     }
     
-    func scaleAudio(asset:AVAsset, factor:Double, destinationURL:URL, progress: @escaping (Float, String) -> (), completion: @escaping (Bool, String?) -> ())  {
+    func scaleAudio(asset:AVAsset, factor:Double, singleChannel:Bool, destinationURL:URL, progress: @escaping (Float, String) -> (), completion: @escaping (Bool, String?) -> ())  {
         
-        guard let (bufferSize, sampleRate, channelCount, audioSamples) = readAndScaleAudioSamples(asset: asset, factor: factor, progress:progress) else {
+        guard let (bufferSize, sampleRate, channelCount, audioSamples) = readAndScaleAudioSamples(asset: asset, factor: factor, singleChannel: singleChannel, progress:progress) else {
             completion(false, "Can't read audio samples")
             return
         }

@@ -29,6 +29,8 @@
 		CD421DB727B719F800B8769C /* Audio Files in Resources */ = {isa = PBXBuildFile; fileRef = CD421DB527B719F800B8769C /* Audio Files */; };
 		CD421DB927B71A0700B8769C /* Echo.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CD421DB827B71A0700B8769C /* Echo.m4a */; };
 		CD421DBA27B71A0700B8769C /* Echo.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CD421DB827B71A0700B8769C /* Echo.m4a */; };
+		CD55078C27BB7C8F00EFA385 /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD55078B27BB7C8F00EFA385 /* ToggleView.swift */; };
+		CD55078D27BB7C8F00EFA385 /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD55078B27BB7C8F00EFA385 /* ToggleView.swift */; };
 		CD895EA227B84D170029F1A2 /* AVAsset-extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD895EA127B84D170029F1A2 /* AVAsset-extensions.swift */; };
 		CD895EA327B84D170029F1A2 /* AVAsset-extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD895EA127B84D170029F1A2 /* AVAsset-extensions.swift */; };
 		CD895EA527B88CE80029F1A2 /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD895EA427B88CE80029F1A2 /* SliderView.swift */; };
@@ -51,6 +53,7 @@
 		CD421DB227B719B900B8769C /* ScaleAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleAudio.swift; sourceTree = "<group>"; };
 		CD421DB527B719F800B8769C /* Audio Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Audio Files"; sourceTree = "<group>"; };
 		CD421DB827B71A0700B8769C /* Echo.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Echo.m4a; sourceTree = "<group>"; };
+		CD55078B27BB7C8F00EFA385 /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		CD895EA127B84D170029F1A2 /* AVAsset-extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAsset-extensions.swift"; sourceTree = "<group>"; };
 		CD895EA427B88CE80029F1A2 /* SliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +94,7 @@
 				CD421DA627B7193300B8769C /* HeaderView.swift */,
 				CD421DAF27B7197400B8769C /* ActivityView.swift */,
 				CD895EA427B88CE80029F1A2 /* SliderView.swift */,
+				CD55078B27BB7C8F00EFA385 /* ToggleView.swift */,
 				CD421D8427B7156600B8769C /* ScaleAudioApp.swift */,
 				CD421D8527B7156600B8769C /* ContentView.swift */,
 				CD421DA227B717C500B8769C /* ScaleAudioObservable.swift */,
@@ -228,6 +232,7 @@
 				CD421DAD27B7195200B8769C /* File.swift in Sources */,
 				CD421D9627B7156600B8769C /* ContentView.swift in Sources */,
 				CD421D9427B7156600B8769C /* ScaleAudioApp.swift in Sources */,
+				CD55078C27BB7C8F00EFA385 /* ToggleView.swift in Sources */,
 				CD421DB027B7197400B8769C /* ActivityView.swift in Sources */,
 				CD421DB327B719B900B8769C /* ScaleAudio.swift in Sources */,
 				CD421DA727B7193300B8769C /* HeaderView.swift in Sources */,
@@ -245,6 +250,7 @@
 				CD421DAE27B7195200B8769C /* File.swift in Sources */,
 				CD421D9727B7156600B8769C /* ContentView.swift in Sources */,
 				CD421D9527B7156600B8769C /* ScaleAudioApp.swift in Sources */,
+				CD55078D27BB7C8F00EFA385 /* ToggleView.swift in Sources */,
 				CD421DB127B7197400B8769C /* ActivityView.swift in Sources */,
 				CD421DB427B719B900B8769C /* ScaleAudio.swift in Sources */,
 				CD421DA827B7193300B8769C /* HeaderView.swift in Sources */,

@@ -23,6 +23,7 @@ class ScaleAudioObservable: ObservableObject  {
     @Published var isScaling:Bool = false
     
     @Published var factor:Double = 1.5
+    @Published var singleChannel:Bool = false
     
     var documentsURL:URL
     
@@ -42,7 +43,7 @@ class ScaleAudioObservable: ObservableObject  {
         let scaleQueue = DispatchQueue(label: "com.limit-point.scaleQueue")
         
         scaleQueue.async {
-            self.scaleAudio.scaleAudio(asset: asset, factor: self.factor, destinationURL: scaledURL, progress: { value, title in
+            self.scaleAudio.scaleAudio(asset: asset, factor: self.factor, singleChannel: self.singleChannel, destinationURL: scaledURL, progress: { value, title in
                 DispatchQueue.main.async {
                     self.progress = value
                     self.progressTitle = title

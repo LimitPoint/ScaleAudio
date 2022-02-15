@@ -24,6 +24,8 @@ struct ContentView: View {
             
             SliderView(scaleAudioObservable: scaleAudioObservable)
             
+            ToggleView(scaleAudioObservable: scaleAudioObservable)
+            
             ActivityView(scaleAudioObservable: scaleAudioObservable)
         }
         .overlay(Group {
