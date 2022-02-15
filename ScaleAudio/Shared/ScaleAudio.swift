@@ -16,6 +16,7 @@ let kAudioReaderSettings = [
     AVLinearPCMBitDepthKey: 16 as AnyObject,
     AVLinearPCMIsBigEndianKey: false as AnyObject,
     AVLinearPCMIsFloatKey: false as AnyObject,
+    //AVNumberOfChannelsKey: 1 as AnyObject, // Set to 1 to read all channels merged into one
     AVLinearPCMIsNonInterleaved: false as AnyObject]
 
 let kAudioWriterExpectsMediaDataInRealTime = false
@@ -208,6 +209,10 @@ class ScaleAudio {
         progress(0, "Interleaving:")
         
         guard arrays.count > 0 else { return nil }
+        
+        if arrays.count == 1 {
+            return arrays[0]
+        }
         
         var size = Int.max
         for m in 0...arrays.count-1 {
