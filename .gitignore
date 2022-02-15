@@ -1,10 +1,2 @@
-
-*.xcuserstate
-ScaleAudio/ScaleAudio.xcodeproj/xcuserdata/jpagliaro.xcuserdatad/xcschemes/xcschememanagement.plist
-*.xcuserstate
-ScaleAudio/ScaleAudio.xcodeproj/xcuserdata/jpagliaro.xcuserdatad/xcschemes/xcschememanagement.plist
-ScaleAudio/ScaleAudio.xcodeproj/project.xcworkspace/xcuserdata/jpagliaro.xcuserdatad/UserInterfaceState.xcuserstate
-ScaleAudio/ScaleAudio.xcodeproj/project.xcworkspace/xcuserdata/jpagliaro.xcuserdatad/UserInterfaceState.xcuserstate
-ScaleAudio/ScaleAudio.xcodeproj/xcuserdata/jpagliaro.xcuserdatad/xcschemes/xcschememanagement.plist
-ScaleAudio/ScaleAudio.xcodeproj/project.xcworkspace/xcuserdata/jpagliaro.xcuserdatad/UserInterfaceState.xcuserstate
-ScaleAudio/ScaleAudio.xcodeproj/xcuserdata/jpagliaro.xcuserdatad/xcschemes/xcschememanagement.plist
+## User settings
+xcuserdata/
