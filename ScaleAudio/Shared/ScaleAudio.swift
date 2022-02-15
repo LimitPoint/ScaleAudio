@@ -112,6 +112,8 @@ extension Array where Element == Int16  {
 
 class ScaleAudio {
     
+    var formatDescriptor:CMAudioFormatDescription?
+    
     func audioReader(asset:AVAsset, outputSettings: [String : Any]?) -> (audioTrack:AVAssetTrack?, audioReader:AVAssetReader?, audioReaderOutput:AVAssetReaderTrackOutput?) {
         
         if let audioTrack = asset.tracks(withMediaType: .audio).first {
@@ -180,7 +182,9 @@ class ScaleAudio {
                     
                     if let sampleBuffer = audioReaderOutput.copyNextSampleBuffer(), let bufferSamples = self.extractSamples(sampleBuffer) {
                         
-                        if let audioStreamBasicDescription = CMSampleBufferGetFormatDescription(sampleBuffer)?.audioStreamBasicDescription {
+                        if let formatDescriptor = CMSampleBufferGetFormatDescription(sampleBuffer), let audioStreamBasicDescription = formatDescriptor.audioStreamBasicDescription {
+                            
+                            self.formatDescriptor = formatDescriptor
                             
                             if bufferSize == 0 {
                                 channelCount = Int(audioStreamBasicDescription.mChannelsPerFrame)
@@ -303,24 +307,9 @@ class ScaleAudio {
             flags: 0, 
             blockBufferOut:&samplesBlock
         ) == kCMBlockBufferNoErr, let samplesBlock = samplesBlock {
-            
-            let sizeInt16 = MemoryLayout<Int16>.size  // 2
-            
-            var asbd = AudioStreamBasicDescription()
-            
-            asbd.mSampleRate = Float64(sampleRate)
-            asbd.mFormatID = kAudioFormatLinearPCM
-            asbd.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked
-            asbd.mBitsPerChannel = UInt32(8 * sizeInt16)
-            asbd.mChannelsPerFrame = UInt32(channelCount)
-            asbd.mFramesPerPacket = 1
-            asbd.mBytesPerFrame = UInt32(sizeInt16 * channelCount)
-            asbd.mBytesPerPacket = asbd.mBytesPerFrame * asbd.mFramesPerPacket
-            
-            var formatDesc: CMAudioFormatDescription?
-            
-            if CMAudioFormatDescriptionCreate(allocator: nil, asbd: &asbd, layoutSize: 0, layout: nil, magicCookieSize: 0, magicCookie: nil, extensions: nil, formatDescriptionOut: &formatDesc) == noErr, let formatDesc = formatDesc {
-                
+                        
+            if let formatDesc = self.formatDescriptor {
+                                
                 let sampleCount = audioSamples.count / channelCount
                 
                 if CMSampleBufferCreate(allocator: kCFAllocatorDefault, dataBuffer: samplesBlock, dataReady: true, makeDataReadyCallback: nil, refcon: nil, formatDescription: formatDesc, sampleCount: sampleCount, sampleTimingEntryCount: 0, sampleTimingArray: nil, sampleSizeEntryCount: 0, sampleSizeArray: nil, sampleBufferOut: &sampleBuffer) == noErr, let sampleBuffer = sampleBuffer {
@@ -362,8 +351,8 @@ class ScaleAudio {
                 
         let nbrSamples = sampleBuffers.count
         
-        guard nbrSamples > 0, let firstSampleBuffer = sampleBuffers.first, let sampleBuffer = firstSampleBuffer  else {
-            completion(false, "Invalid buffer list.")
+        guard nbrSamples > 0  else {
+            completion(false, "Invalid buffer count.")
             return
         }
         
@@ -375,9 +364,8 @@ class ScaleAudio {
             completion(false, "Can't create asset writer.")
             return
         }
-        
-        let sourceFormat = CMSampleBufferGetFormatDescription(sampleBuffer)
-        
+                
+            // Header: "When a source format hint is provided, the outputSettings dictionary is not required to be fully specified." 
         let audioFormatSettings = [AVFormatIDKey: kAudioFormatLinearPCM] as [String : Any]
         
         if assetWriter.canApply(outputSettings: audioFormatSettings, forMediaType: AVMediaType.audio) == false {
@@ -385,7 +373,7 @@ class ScaleAudio {
             return
         }
         
-        let audioWriterInput = AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings:audioFormatSettings, sourceFormatHint: sourceFormat)
+        let audioWriterInput = AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings:audioFormatSettings, sourceFormatHint: self.formatDescriptor)
         
         audioWriterInput.expectsMediaDataInRealTime = kAudioWriterExpectsMediaDataInRealTime
         
