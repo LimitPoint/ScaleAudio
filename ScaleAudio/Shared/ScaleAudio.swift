@@ -111,9 +111,7 @@ extension Array where Element == Int16  {
 }
 
 class ScaleAudio {
-    
-    var formatDescriptor:CMAudioFormatDescription?
-    
+        
     func audioReader(asset:AVAsset, outputSettings: [String : Any]?) -> (audioTrack:AVAssetTrack?, audioReader:AVAssetReader?, audioReaderOutput:AVAssetReaderTrackOutput?) {
         
         if let audioTrack = asset.tracks(withMediaType: .audio).first {
@@ -144,7 +142,7 @@ class ScaleAudio {
         return nil
     }
     
-    func readAndScaleAudioSamples(asset:AVAsset, factor:Double, singleChannel:Bool, progress: @escaping (Float, String) -> ()) -> (Int, Int, Int, [Int16]?)? {
+    func readAndScaleAudioSamples(asset:AVAsset, factor:Double, singleChannel:Bool, progress: @escaping (Float, String) -> ()) -> (Int, Int, Int, CMAudioFormatDescription?, [Int16]?)? {
         
         progress(0, "Reading audio:")
         
@@ -172,6 +170,7 @@ class ScaleAudio {
         var bufferSize:Int = 0
         var sampleRate:Int = 0
         var channelCount:Int = 0
+        var formatDescription:CMAudioFormatDescription?
         var audioSamples:[[Int16]] = [[]] // one for each channel
         
         if audioReader.startReading() {
@@ -182,10 +181,10 @@ class ScaleAudio {
                     
                     if let sampleBuffer = audioReaderOutput.copyNextSampleBuffer(), let bufferSamples = self.extractSamples(sampleBuffer) {
                         
-                        if let formatDescriptor = CMSampleBufferGetFormatDescription(sampleBuffer), let audioStreamBasicDescription = formatDescriptor.audioStreamBasicDescription {
-                            
-                            self.formatDescriptor = formatDescriptor
-                            
+                        formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer)
+                        
+                        if let audioStreamBasicDescription = formatDescription?.audioStreamBasicDescription {
+                                                        
                             if bufferSize == 0 {
                                 channelCount = Int(audioStreamBasicDescription.mChannelsPerFrame)
                                 bufferSize = bufferSamples.count
@@ -211,7 +210,7 @@ class ScaleAudio {
         
         let scaledAudioSamples = scaleAudioSamples(audioSamples, factor: factor, progress:progress)
         
-        return (bufferSize, sampleRate, channelCount, scaledAudioSamples)
+        return (bufferSize, sampleRate, channelCount, formatDescription, scaledAudioSamples)
     }
     
     func interleave_arrays(_ arrays:[[Int16]], progress: @escaping (Float, String) -> ()) -> [Int16]? {
@@ -279,7 +278,7 @@ class ScaleAudio {
     }
     
         // multi channel
-    func sampleBufferForSamples(audioSamples:[Int16], sampleRate:Int, channelCount:Int) -> CMSampleBuffer? {
+    func sampleBufferForSamples(audioSamples:[Int16], sampleRate:Int, channelCount:Int, formatDescription:CMAudioFormatDescription) -> CMSampleBuffer? {
         
         var sampleBuffer:CMSampleBuffer?
         
@@ -308,15 +307,12 @@ class ScaleAudio {
             blockBufferOut:&samplesBlock
         ) == kCMBlockBufferNoErr, let samplesBlock = samplesBlock {
                         
-            if let formatDesc = self.formatDescriptor {
-                                
-                let sampleCount = audioSamples.count / channelCount
+            let sampleCount = audioSamples.count / channelCount
+            
+            if CMSampleBufferCreate(allocator: kCFAllocatorDefault, dataBuffer: samplesBlock, dataReady: true, makeDataReadyCallback: nil, refcon: nil, formatDescription: formatDescription, sampleCount: sampleCount, sampleTimingEntryCount: 0, sampleTimingArray: nil, sampleSizeEntryCount: 0, sampleSizeArray: nil, sampleBufferOut: &sampleBuffer) == noErr, let sampleBuffer = sampleBuffer {
                 
-                if CMSampleBufferCreate(allocator: kCFAllocatorDefault, dataBuffer: samplesBlock, dataReady: true, makeDataReadyCallback: nil, refcon: nil, formatDescription: formatDesc, sampleCount: sampleCount, sampleTimingEntryCount: 0, sampleTimingArray: nil, sampleSizeEntryCount: 0, sampleSizeArray: nil, sampleBufferOut: &sampleBuffer) == noErr, let sampleBuffer = sampleBuffer {
-                    
-                    guard sampleBuffer.isValid, sampleBuffer.numSamples == sampleCount else {
-                        return nil
-                    }
+                guard sampleBuffer.isValid, sampleBuffer.numSamples == sampleCount else {
+                    return nil
                 }
             }
         }
@@ -324,7 +320,7 @@ class ScaleAudio {
         return sampleBuffer
     }
     
-    func sampleBuffersForSamples(bufferSize:Int, audioSamples:[Int16], sampleRate:Int, channelCount:Int, progress: @escaping (Float, String) -> ()) -> [CMSampleBuffer?] {
+    func sampleBuffersForSamples(bufferSize:Int, audioSamples:[Int16], sampleRate:Int, channelCount:Int, formatDescription:CMAudioFormatDescription, progress: @escaping (Float, String) -> ()) -> [CMSampleBuffer?] {
         
         progress(0, "Preparing Samples:")
                 
@@ -337,7 +333,7 @@ class ScaleAudio {
             let percent = (Float(index+1) / Float(blockedAudioSamples.count))
             progress(percent, "Preparing Samples \(Int(percent * 100))%:")
             
-            let sampleBuffer = sampleBufferForSamples(audioSamples: audioSamples, sampleRate: sampleRate, channelCount:channelCount)
+            let sampleBuffer = sampleBufferForSamples(audioSamples: audioSamples, sampleRate: sampleRate, channelCount:channelCount, formatDescription: formatDescription)
             
             sampleBuffers.append(sampleBuffer)
         }
@@ -345,7 +341,7 @@ class ScaleAudio {
         return sampleBuffers
     }
     
-    func saveSampleBuffersToFile(_ sampleBuffers:[CMSampleBuffer?], destinationURL:URL, progress: @escaping (Float, String) -> (), completion: @escaping (Bool, String?) -> ())  {
+    func saveSampleBuffersToFile(_ sampleBuffers:[CMSampleBuffer?], formatDescription:CMAudioFormatDescription, destinationURL:URL, progress: @escaping (Float, String) -> (), completion: @escaping (Bool, String?) -> ())  {
         
         progress(0, "Writing Samples:")
                 
@@ -373,7 +369,7 @@ class ScaleAudio {
             return
         }
         
-        let audioWriterInput = AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings:audioFormatSettings, sourceFormatHint: self.formatDescriptor)
+        let audioWriterInput = AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings:audioFormatSettings, sourceFormatHint: formatDescription)
         
         audioWriterInput.expectsMediaDataInRealTime = kAudioWriterExpectsMediaDataInRealTime
         
@@ -449,8 +445,13 @@ class ScaleAudio {
     
     func scaleAudio(asset:AVAsset, factor:Double, singleChannel:Bool, destinationURL:URL, progress: @escaping (Float, String) -> (), completion: @escaping (Bool, String?) -> ())  {
         
-        guard let (bufferSize, sampleRate, channelCount, audioSamples) = readAndScaleAudioSamples(asset: asset, factor: factor, singleChannel: singleChannel, progress:progress) else {
+        guard let (bufferSize, sampleRate, channelCount, formatDescription, audioSamples) = readAndScaleAudioSamples(asset: asset, factor: factor, singleChannel: singleChannel, progress:progress) else {
             completion(false, "Can't read audio samples")
+            return
+        }
+        
+        guard let formatDescription = formatDescription else {
+            completion(false, "No audio format description")
             return
         }
         
@@ -459,8 +460,8 @@ class ScaleAudio {
             return
         }
         
-        let sampleBuffers = sampleBuffersForSamples(bufferSize: bufferSize, audioSamples: audioSamples, sampleRate: sampleRate, channelCount:channelCount, progress:progress)
+        let sampleBuffers = sampleBuffersForSamples(bufferSize: bufferSize, audioSamples: audioSamples, sampleRate: sampleRate, channelCount:channelCount, formatDescription: formatDescription, progress:progress)
         
-        saveSampleBuffersToFile(sampleBuffers, destinationURL: destinationURL, progress: progress, completion: completion)
+        saveSampleBuffersToFile(sampleBuffers, formatDescription: formatDescription, destinationURL: destinationURL, progress: progress, completion: completion)
     }
 }
