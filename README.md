@@ -33,9 +33,32 @@ The top level method that implements all of this, and is employed by the `ScaleA
 ```swift
 func scaleAudio(asset:AVAsset, factor:Double, singleChannel:Bool, destinationURL:URL, avFileType:AVFileType, progress: @escaping (Float, String) -> (), completion: @escaping (Bool, String?) -> ())
 ```
+Arguments:
+
+1. **asset:AVAsset** - The [AVAsset] for the audio file to be scaled.
+
+```swift
+let asset = AVAsset(url: url)
+```
+2. **factor:Double** - A scale factor < 1 slows down the audio, a factor > 1 speeds it up. For example if the audio is originally 10 seconds long and the scale factor is 2 then the scaled audio will be 20 seconds long. If factor is 0.5 then scaled audio will be 5 seconds long. 
+
+3. **singleChannel:Bool** - The [AVAssetReader] that reads the file can deliver the audio data interleaved with alternating samples from each channel (singleChannel = false) or as a single merged channel (singleChannel = true). 
+
+4. **destinationURL:URL** - A [URL] that specifies the location for the output file. The extension chosen for this URL should be compatible with the next argument for file type. 
+
+5. **avFileType:AVFileType** - An [AVFileType] for the desired file type that should be compatible with the previous argument for file extension.
+
+6. **progress** - A handler that is periodically executed to send progress messages and values.
+
+7. **completion** - A handler that is executed when the operation has completed to send a message of success or not.
+
 
 [App]: https://developer.apple.com/documentation/swiftui/app
 [ObservableObject]: https://developer.apple.com/documentation/combine/observableobject
 [AVFoundation]: https://developer.apple.com/documentation/avfoundation/
 [SwiftUI]: https://developer.apple.com/tutorials/swiftui
 [CMSampleBuffer]: https://developer.apple.com/documentation/coremedia/cmsamplebuffer
+[AVAsset]: https://developer.apple.com/documentation/avfoundation/avasset
+[AVAssetReader]: https://developer.apple.com/documentation/avfoundation/AVAssetReader
+[AVFileType]: https://developer.apple.com/documentation/avfoundation/avfiletype
+[URL]: https://developer.apple.com/documentation/foundation/url
