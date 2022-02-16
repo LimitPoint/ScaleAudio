@@ -10,7 +10,15 @@ import Foundation
 import AVFoundation
 
 let kAudioFilesSubdirectory = "Audio Files"
-let kAudioExtensions: [String] = ["aac", "m4a", "aiff", "aif", "wav", "mp3", "caf", "m4r", "flac","mp4"]
+let kAudioExtensions: [String] = ["aac", "m4a", "aiff", "aif", "wav", "mp3", "caf", "m4r", "flac", "mp4"]
+let kAudioFileTypes: [AVFileType] = [AVFileType.m4a, AVFileType.m4a, AVFileType.aiff, AVFileType.aiff, AVFileType.wav, AVFileType.mp3, AVFileType.caf, AVFileType.m4a, AVFileType.m4a, AVFileType.mp4]
+
+func AVFileTypeForExtension(ext:String) -> AVFileType {
+    if let index = kAudioExtensions.firstIndex(of: ext) {
+        return kAudioFileTypes[index]
+    }
+    return AVFileType.m4a
+}
 
 class ScaleAudioObservable: ObservableObject  {
     
@@ -62,7 +70,7 @@ class ScaleAudioObservable: ObservableObject  {
         
         filename = url.lastPathComponent
         
-        scale(url: url, saveTo: "SCALED.wav") { (success, scaledURL, failureReason) in
+        scale(url: url, saveTo: "SCALED.\(url.pathExtension)") { (success, scaledURL, failureReason) in
             
             if success {
                 

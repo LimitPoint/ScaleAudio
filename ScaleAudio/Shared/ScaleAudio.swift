@@ -353,7 +353,10 @@ class ScaleAudio {
             try FileManager.default.removeItem(at: destinationURL)
         } catch _ {}
         
-        guard let assetWriter = try? AVAssetWriter(outputURL: destinationURL, fileType: AVFileType.wav) else {
+        
+        let avFileType = AVFileTypeForExtension(ext: destinationURL.pathExtension)
+        
+        guard let assetWriter = try? AVAssetWriter(outputURL: destinationURL, fileType: avFileType) else {
             completion(false, "Can't create asset writer.")
             return
         }
