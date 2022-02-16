@@ -37,9 +37,6 @@ Arguments:
 
 1. **asset:AVAsset** - The [AVAsset] for the audio file to be scaled.
 
-```swift
-let asset = AVAsset(url: url)
-```
 2. **factor:Double** - A scale factor < 1 slows down the audio, a factor > 1 speeds it up. For example if the audio is originally 10 seconds long and the scale factor is 2 then the scaled audio will be 20 seconds long. If factor is 0.5 then scaled audio will be 5 seconds long. 
 
 3. **singleChannel:Bool** - The [AVAssetReader] that reads the file can deliver the audio data interleaved with alternating samples from each channel (singleChannel = false) or as a single merged channel (singleChannel = true). 
