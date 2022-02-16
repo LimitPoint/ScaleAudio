@@ -11,13 +11,20 @@ import AVFoundation
 
 let kAudioFilesSubdirectory = "Audio Files"
 let kAudioExtensions: [String] = ["aac", "m4a", "aiff", "aif", "wav", "mp3", "caf", "m4r", "flac", "mp4"]
-let kAudioFileTypes: [AVFileType] = [AVFileType.m4a, AVFileType.m4a, AVFileType.aiff, AVFileType.aiff, AVFileType.wav, AVFileType.mp3, AVFileType.caf, AVFileType.m4a, AVFileType.m4a, AVFileType.mp4]
+let kAudioFileTypes: [AVFileType] = [AVFileType.m4a, AVFileType.m4a, AVFileType.aiff, AVFileType.aiff, AVFileType.wav, AVFileType.m4a, AVFileType.caf, AVFileType.m4a, AVFileType.m4a, AVFileType.mp4]
 
 func AVFileTypeForExtension(ext:String) -> AVFileType {
     if let index = kAudioExtensions.firstIndex(of: ext) {
         return kAudioFileTypes[index]
     }
     return AVFileType.m4a
+}
+
+func ExtensionForAVFileType(_ type:AVFileType) -> String {
+    if let ext =  UTType(type.rawValue)?.preferredFilenameExtension {
+        return ext
+    }
+    return "m4a"
 }
 
 class ScaleAudioObservable: ObservableObject  {
@@ -42,7 +49,7 @@ class ScaleAudioObservable: ObservableObject  {
     
     let scaleAudio = ScaleAudio()
     
-    func scale(url:URL, saveTo:String, completion: @escaping (Bool, URL, String?) -> ()) {
+    func scale(url:URL, avFileType:AVFileType, saveTo:String, completion: @escaping (Bool, URL, String?) -> ()) {
         
         let scaledURL = documentsURL.appendingPathComponent(saveTo)
         
@@ -51,7 +58,7 @@ class ScaleAudioObservable: ObservableObject  {
         let scaleQueue = DispatchQueue(label: "com.limit-point.scaleQueue")
         
         scaleQueue.async {
-            self.scaleAudio.scaleAudio(asset: asset, factor: self.factor, singleChannel: self.singleChannel, destinationURL: scaledURL, progress: { value, title in
+            self.scaleAudio.scaleAudio(asset: asset, factor: self.factor, singleChannel: self.singleChannel, destinationURL: scaledURL, avFileType: avFileType, progress: { value, title in
                 DispatchQueue.main.async {
                     self.progress = value
                     self.progressTitle = title
@@ -70,7 +77,11 @@ class ScaleAudioObservable: ObservableObject  {
         
         filename = url.lastPathComponent
         
-        scale(url: url, saveTo: "SCALED.\(url.pathExtension)") { (success, scaledURL, failureReason) in
+        // output extension should match AVFileType
+        let avFileType = AVFileTypeForExtension(ext: url.pathExtension)
+        let scaledExtension = ExtensionForAVFileType(avFileType)
+        
+        scale(url: url, avFileType:avFileType, saveTo: "SCALED.\(scaledExtension)") { (success, scaledURL, failureReason) in
             
             if success {
                 

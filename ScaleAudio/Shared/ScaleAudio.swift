@@ -111,6 +111,8 @@ extension Array where Element == Int16  {
 }
 
 class ScaleAudio {
+    
+    var avFileType:AVFileType?
         
     func audioReader(asset:AVAsset, outputSettings: [String : Any]?) -> (audioTrack:AVAssetTrack?, audioReader:AVAssetReader?, audioReaderOutput:AVAssetReaderTrackOutput?) {
         
@@ -353,10 +355,7 @@ class ScaleAudio {
             try FileManager.default.removeItem(at: destinationURL)
         } catch _ {}
         
-        
-        let avFileType = AVFileTypeForExtension(ext: destinationURL.pathExtension)
-        
-        guard let assetWriter = try? AVAssetWriter(outputURL: destinationURL, fileType: avFileType) else {
+        guard let avFileType = avFileType, let assetWriter = try? AVAssetWriter(outputURL: destinationURL, fileType: avFileType) else {
             completion(false, "Can't create asset writer.")
             return
         }
@@ -443,7 +442,9 @@ class ScaleAudio {
         }
     }
     
-    func scaleAudio(asset:AVAsset, factor:Double, singleChannel:Bool, destinationURL:URL, progress: @escaping (Float, String) -> (), completion: @escaping (Bool, String?) -> ())  {
+    func scaleAudio(asset:AVAsset, factor:Double, singleChannel:Bool, destinationURL:URL, avFileType:AVFileType, progress: @escaping (Float, String) -> (), completion: @escaping (Bool, String?) -> ())  {
+        
+        self.avFileType = avFileType
         
         guard let (bufferSize, channelCount, formatDescription, audioSamples) = readAndScaleAudioSamples(asset: asset, factor: factor, singleChannel: singleChannel, progress:progress) else {
             completion(false, "Can't read audio samples")
