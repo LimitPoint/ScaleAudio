@@ -31,7 +31,7 @@ Scaling audio is performed in 3 steps using [AVFoundation]:
 The top level method that implements all of this, and is employed by the `ScaleAudioObservable` is: 
 
 ```swift
-func scaleAudio(asset:AVAsset, factor:Double, destinationURL:URL, progress: @escaping (Float, String) -> (), completion: @escaping (Bool, String?) -> ())
+func scaleAudio(asset:AVAsset, factor:Double, singleChannel:Bool, destinationURL:URL, avFileType:AVFileType, progress: @escaping (Float, String) -> (), completion: @escaping (Bool, String?) -> ())
 ```
 
 [App]: https://developer.apple.com/documentation/swiftui/app
