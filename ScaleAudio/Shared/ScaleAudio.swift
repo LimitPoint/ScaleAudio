@@ -22,99 +22,40 @@ let kAudioReaderSettings = [
 let kAudioWriterExpectsMediaDataInRealTime = false
 let kScaleAudioQueue = "com.limit-point.scale-audio-queue"
 
-extension Array {
-    func blocks(size: Int) -> [[Element]] {
-        return stride(from: 0, to: count, by: size).map {
-            Array(self[$0 ..< Swift.min($0 + size, count)])
-        }
-    }
-}
-
-extension Array where Element == Int16  {
-    func scaleToD(length:Int, smoothly:Bool) -> [Element] {
-        
-        guard length > 0 else {
-            return []
-        }
-        
-        let stride = vDSP_Stride(1)
-        var control:[Double]
-                
-        if smoothly, length > self.count {
-            let denominator = Double(length) / Double(self.count - 1)
-            
-            control = (0...length).map {
-                let x = Double($0) / denominator
-                return floor(x) + simd_smoothstep(0, 1, simd_fract(x))
-            }
-        }
-        else {
-            var base: Double = 0
-            var end = Double(self.count - 1)
-            control = [Double](repeating: 0, count: length)
-            
-            vDSP_vgenD(&base, &end, &control, stride, vDSP_Length(length))
-        }
-        
-        // for interpolation samples in app init
-        if control.count <= 16  { // limit to small arrays!
-            print("control = \(control)")
-        }
-        
-        var result = [Double](repeating: 0,
-                              count: length)
-        
-        let double_array = vDSP.integerToFloatingPoint(self, floatingPointType: Double.self)
-        
-        vDSP_vlintD(double_array,
-                    control, stride,
-                    &result, stride,
-                    vDSP_Length(length),
-                    vDSP_Length(double_array.count))
-        
-        return vDSP.floatingPointToInteger(result, integerType: Int16.self, rounding: .towardNearestInteger)
-    }
-    
-    func extract_array_channel(channelIndex:Int, channelCount:Int) -> [Int16]? {
-        
-        guard channelIndex >= 0, channelIndex < channelCount, self.count > 0 else { return nil }
-        
-        let channel_array_length = self.count / channelCount
-        
-        guard channel_array_length > 0 else { return nil }
-        
-        var channel_array = [Int16](repeating: 0, count: channel_array_length)
-        
-        for index in 0...channel_array_length-1 {
-            let array_index = channelIndex + index * channelCount
-            channel_array[index] = self[array_index]
-        }
-        
-        return channel_array
-    }
-    
-    func extract_array_channels(channelCount:Int) -> [[Int16]] {
-        
-        var channels:[[Int16]] = []
-        
-        guard channelCount > 0 else { return channels }
-        
-        for channel_index in 0...channelCount-1 {
-            if let channel = self.extract_array_channel(channelIndex: channel_index, channelCount: channelCount) {
-                channels.append(channel)
-            }
-            
-        }
-        
-        return channels
-    }
-}
-
 class ScaleAudio {
     
     var avFileType:AVFileType?
     
-    var progress:((Float, String) -> ()) = { value,_ in print("progress = \(value)") }
+    var currentProgress:Double = 0
+    var progress:((Double, String) -> ()) = { value,_ in print("progress = \(value)") }
+    
+        // must add up to 1
+    var readAndScaleAudioSamples_ProgressWeight = 0.33
+    var interleave_arrays_ProgressWeight = 0.33
+    var scaleAudioSamples_ProgressWeight = 0.24
+    var sampleBuffersForSamples_ProgressWeight = 0.05
+    var saveSampleBuffersToFile_ProgressWeight = 0.05
+    
+    func updateProgress(counter:Int, lastCounter:Int? = nil, totalCount:Int, weight:Double, label:String, condition:Bool) {
+        
+        guard totalCount > 0 else {
+            return
+        }
+
+        var multiplicity:Int = 1
+        if let lastCounter = lastCounter, counter > lastCounter  {
+            multiplicity = counter - lastCounter
+        }
+        
+        var percent = Double(counter) / Double(totalCount)
+        let percentChange = Double(multiplicity) / Double(totalCount)
+        currentProgress += (percentChange * weight)
+
+        currentProgress = min(max(currentProgress, 0), 1)
+        percent = min(max(percent, 0), 1)
+        
+        if condition { progress(currentProgress, "\(label) \(Int(percent * 100))%") }
+    }
         
     func audioReader(asset:AVAsset, outputSettings: [String : Any]?) -> (audioTrack:AVAssetTrack?, audioReader:AVAssetReader?, audioReaderOutput:AVAssetReaderTrackOutput?) {
         
@@ -148,13 +89,28 @@ class ScaleAudio {
     
     func readAndScaleAudioSamples(asset:AVAsset, factor:Double, singleChannel:Bool) -> (Int, Int, CMAudioFormatDescription?, [Int16]?)? {
         
-        progress(0, "Reading audio:")
+        progress(currentProgress, "Reading audio")
         
         var outputSettings:[String : Any] = kAudioReaderSettings
         
         if singleChannel {
             outputSettings[AVNumberOfChannelsKey] = 1 as AnyObject
+            
+            readAndScaleAudioSamples_ProgressWeight = 0.4
+            interleave_arrays_ProgressWeight = 0
+            scaleAudioSamples_ProgressWeight = 0.4
+            sampleBuffersForSamples_ProgressWeight = 0.1
+            saveSampleBuffersToFile_ProgressWeight = 0.1
         }
+        else {
+            readAndScaleAudioSamples_ProgressWeight = 0.33
+            interleave_arrays_ProgressWeight = 0.33
+            scaleAudioSamples_ProgressWeight = 0.24
+            sampleBuffersForSamples_ProgressWeight = 0.05
+            saveSampleBuffersToFile_ProgressWeight = 0.05
+        }
+        
+        let totalSamplesCount = asset.bufferCounts(outputSettings).bufferSampleCount
         
         let (_, reader, readerOutput) = self.audioReader(asset:asset, outputSettings: outputSettings)
         
@@ -175,7 +131,10 @@ class ScaleAudio {
         var channelCount:Int = 0
         var formatDescription:CMAudioFormatDescription?
         var audioSamples:[[Int16]] = [[]] // one for each channel
-        
+                
+        var bufferSamplesCount:Int = 0
+        var lastBufferSamplesCount:Int = 0
+                
         if audioReader.startReading() {
             
             while audioReader.status == .reading {
@@ -183,6 +142,10 @@ class ScaleAudio {
                 autoreleasepool { () -> Void in
                     
                     if let sampleBuffer = audioReaderOutput.copyNextSampleBuffer(), let bufferSamples = self.extractSamples(sampleBuffer) {
+                        
+                        bufferSamplesCount += sampleBuffer.numSamples
+                        updateProgress(counter:bufferSamplesCount, lastCounter: lastBufferSamplesCount, totalCount:totalSamplesCount, weight:readAndScaleAudioSamples_ProgressWeight, label:"Reading audio", condition:true)
+                        lastBufferSamplesCount = bufferSamplesCount
                         
                         formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer)
                         
@@ -215,14 +178,14 @@ class ScaleAudio {
     }
     
     func interleave_arrays(_ arrays:[[Int16]]) -> [Int16]? {
-                
-        progress(0, "Interleaving:")
         
         guard arrays.count > 0 else { return nil }
         
         if arrays.count == 1 {
             return arrays[0]
         }
+        
+        progress(currentProgress, "Interleaving")
         
         var size = Int.max
         for m in 0...arrays.count-1 {
@@ -247,11 +210,11 @@ class ScaleAudio {
                 lastDate = Date()
                 
                 totalElapsed += elapsed
+
+                updateProgress(counter:count, totalCount:interleaved_length, weight:interleave_arrays_ProgressWeight, label:"Interleaving", condition:totalElapsed > 1)
                 
                 if totalElapsed > 1 {
                     totalElapsed = 0
-                    let percent = Float(count) / Float(interleaved_length)
-                    progress(percent, "Interleaving \(Int(percent * 100))%:")
                 }
             }
         }
@@ -263,16 +226,15 @@ class ScaleAudio {
                 
         var scaledAudioSamplesChannels:[[Int16]] = []
         
-        progress(0, "Scaling:")
+        progress(currentProgress, "Scaling")
         
         for (index, audioSamplesChannel) in audioSamples.enumerated() {
-            
-            let percent = (Float(index+1) / Float(audioSamples.count))
-            progress(percent, "Scaling \(Int(percent * 100))%:")
             
             let length = Int(Double(audioSamplesChannel.count) * factor)
             
             scaledAudioSamplesChannels.append(audioSamplesChannel.scaleToD(length: length, smoothly: true)) 
+            
+            updateProgress(counter:index+1, totalCount:audioSamples.count, weight:scaleAudioSamples_ProgressWeight, label:"Scaling", condition:true)
         }
         
         return interleave_arrays(scaledAudioSamplesChannels)
@@ -323,16 +285,15 @@ class ScaleAudio {
     
     func sampleBuffersForSamples(bufferSize:Int, audioSamples:[Int16], channelCount:Int, formatDescription:CMAudioFormatDescription) -> [CMSampleBuffer?] {
         
-        progress(0, "Preparing Samples:")
+        progress(currentProgress, "Preparing Samples")
                 
         let blockedAudioSamples = audioSamples.blocks(size: bufferSize)
                 
         var sampleBuffers:[CMSampleBuffer?] = []
         
         for (index, audioSamples) in blockedAudioSamples.enumerated() {
-        
-            let percent = (Float(index+1) / Float(blockedAudioSamples.count))
-            progress(percent, "Preparing Samples \(Int(percent * 100))%:")
+            
+            updateProgress(counter:index+1, totalCount:blockedAudioSamples.count, weight:sampleBuffersForSamples_ProgressWeight, label:"Preparing Samples", condition:true)
             
             let sampleBuffer = sampleBufferForSamples(audioSamples: audioSamples, channelCount:channelCount, formatDescription: formatDescription)
             
@@ -344,7 +305,7 @@ class ScaleAudio {
     
     func saveSampleBuffersToFile(_ sampleBuffers:[CMSampleBuffer?], formatDescription:CMAudioFormatDescription, destinationURL:URL, completion: @escaping (Bool, String?) -> ())  {
         
-        progress(0, "Writing Samples:")
+        progress(currentProgress, "Writing Samples")
                 
         let nbrSamples = sampleBuffers.count
         
@@ -432,8 +393,7 @@ class ScaleAudio {
                 
                 index += 1
                 
-                let percent = (Float(index) / Float(nbrSamples))
-                self.progress(percent, "Writing Samples \(Int(percent * 100))%:")
+                self.updateProgress(counter:index, totalCount:nbrSamples, weight:self.saveSampleBuffersToFile_ProgressWeight, label:"Writing Samples", condition:true)
                 
                 if index == nbrSamples {
                     audioWriterInput.markAsFinished()
@@ -444,9 +404,10 @@ class ScaleAudio {
         }
     }
     
-    func scaleAudio(asset:AVAsset, factor:Double, singleChannel:Bool, destinationURL:URL, avFileType:AVFileType, progress:((Float, String) -> ())? = nil, completion: @escaping (Bool, String?) -> ())  {
+    func scaleAudio(asset:AVAsset, factor:Double, singleChannel:Bool, destinationURL:URL, avFileType:AVFileType, progress:((Double, String) -> ())? = nil, completion: @escaping (Bool, String?) -> ())  {
         
         self.avFileType = avFileType
+        currentProgress = 0
         
         if let progress = progress {
             self.progress = progress 

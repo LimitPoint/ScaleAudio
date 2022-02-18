@@ -33,8 +33,8 @@ class ScaleAudioObservable: ObservableObject  {
     
     @Published var scaledAudioURL:URL?
     
-    @Published var progress:Float = 0
-    @Published var progressTitle:String = "Progress:"
+    @Published var progress:Double = 0
+    @Published var progressTitle:String = "Progress"
     @Published var isScaling:Bool = false
     
     @Published var factor:Double = 1.5
@@ -59,6 +59,7 @@ class ScaleAudioObservable: ObservableObject  {
         
         scaleQueue.async {
             self.scaleAudio.scaleAudio(asset: asset, factor: self.factor, singleChannel: self.singleChannel, destinationURL: scaledURL, avFileType: avFileType, progress: { value, title in
+                
                 DispatchQueue.main.async {
                     self.progress = value
                     self.progressTitle = title

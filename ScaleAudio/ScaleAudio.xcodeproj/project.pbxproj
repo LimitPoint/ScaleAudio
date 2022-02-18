@@ -35,6 +35,8 @@
 		CD895EA327B84D170029F1A2 /* AVAsset-extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD895EA127B84D170029F1A2 /* AVAsset-extensions.swift */; };
 		CD895EA527B88CE80029F1A2 /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD895EA427B88CE80029F1A2 /* SliderView.swift */; };
 		CD895EA627B88CE80029F1A2 /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD895EA427B88CE80029F1A2 /* SliderView.swift */; };
+		CDD3051D27BF58ED00558D9C /* Array-extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD3051C27BF58ED00558D9C /* Array-extensions.swift */; };
+		CDD3051E27BF58ED00558D9C /* Array-extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD3051C27BF58ED00558D9C /* Array-extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,7 @@
 		CD55078B27BB7C8F00EFA385 /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		CD895EA127B84D170029F1A2 /* AVAsset-extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAsset-extensions.swift"; sourceTree = "<group>"; };
 		CD895EA427B88CE80029F1A2 /* SliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderView.swift; sourceTree = "<group>"; };
+		CDD3051C27BF58ED00558D9C /* Array-extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array-extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +103,7 @@
 				CD421DA227B717C500B8769C /* ScaleAudioObservable.swift */,
 				CD421DB227B719B900B8769C /* ScaleAudio.swift */,
 				CD895EA127B84D170029F1A2 /* AVAsset-extensions.swift */,
+				CDD3051C27BF58ED00558D9C /* Array-extensions.swift */,
 				CD421D8627B7156600B8769C /* Assets.xcassets */,
 				CD421DB827B71A0700B8769C /* Echo.m4a */,
 				CD421DB527B719F800B8769C /* Audio Files */,
@@ -232,6 +236,7 @@
 				CD421DAD27B7195200B8769C /* File.swift in Sources */,
 				CD421D9627B7156600B8769C /* ContentView.swift in Sources */,
 				CD421D9427B7156600B8769C /* ScaleAudioApp.swift in Sources */,
+				CDD3051D27BF58ED00558D9C /* Array-extensions.swift in Sources */,
 				CD55078C27BB7C8F00EFA385 /* ToggleView.swift in Sources */,
 				CD421DB027B7197400B8769C /* ActivityView.swift in Sources */,
 				CD421DB327B719B900B8769C /* ScaleAudio.swift in Sources */,
@@ -250,6 +255,7 @@
 				CD421DAE27B7195200B8769C /* File.swift in Sources */,
 				CD421D9727B7156600B8769C /* ContentView.swift in Sources */,
 				CD421D9527B7156600B8769C /* ScaleAudioApp.swift in Sources */,
+				CDD3051E27BF58ED00558D9C /* Array-extensions.swift in Sources */,
 				CD55078D27BB7C8F00EFA385 /* ToggleView.swift in Sources */,
 				CD421DB127B7197400B8769C /* ActivityView.swift in Sources */,
 				CD421DB427B719B900B8769C /* ScaleAudio.swift in Sources */,

@@ -37,4 +37,35 @@ extension AVAsset {
         }
     }
     
+    // Note: the number of samples per buffer may change, resulting in different bufferCounts
+    func bufferCounts(_ outputSettings:[String : Any]) -> (bufferCount:Int, bufferSampleCount:Int) {
+        
+        var bufferSampleCount:Int = 0
+        var bufferCount:Int = 0
+        
+        guard let audioTrack = self.tracks(withMediaType: .audio).first else {
+            return (bufferCount, bufferSampleCount)
+        }
+        
+        if let audioReader = try? AVAssetReader(asset: self)  {
+            
+            let audioReaderOutput = AVAssetReaderTrackOutput(track: audioTrack, outputSettings: outputSettings)
+            audioReader.add(audioReaderOutput)
+            
+            if audioReader.startReading() {
+                                
+                while audioReader.status == .reading {
+                    if let sampleBuffer = audioReaderOutput.copyNextSampleBuffer() {
+                        bufferSampleCount += sampleBuffer.numSamples
+                        bufferCount += 1
+                    }
+                    else {
+                        audioReader.cancelReading()
+                    }
+                }
+            }
+        }
+        
+        return (bufferCount, bufferSampleCount)
+    }
 }
