@@ -31,7 +31,7 @@ Scaling audio is performed in 3 steps using [AVFoundation]:
 The top level method that implements all of this, and is employed by the `ScaleAudioObservable` is: 
 
 ```swift
-func scaleAudio(asset:AVAsset, factor:Double, singleChannel:Bool, destinationURL:URL, avFileType:AVFileType, progress: @escaping (Float, String) -> (), completion: @escaping (Bool, String?) -> ())
+func scaleAudio(asset:AVAsset, factor:Double, singleChannel:Bool, destinationURL:URL, avFileType:AVFileType, progress:((Float, String) -> ())? = nil, completion: @escaping (Bool, String?) -> ())
 ```
 Arguments:
 
@@ -45,7 +45,7 @@ Arguments:
 
 5. **avFileType:AVFileType** - An [AVFileType] for the desired file type that should be compatible with the previous argument for file extension.
 
-6. **progress** - A handler that is periodically executed to send progress messages and values.
+6. **progress** - An optional handler that is periodically executed to send progress messages and values.
 
 7. **completion** - A handler that is executed when the operation has completed to send a message of success or not.
 
