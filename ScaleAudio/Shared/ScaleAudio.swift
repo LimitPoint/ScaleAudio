@@ -113,6 +113,8 @@ extension Array where Element == Int16  {
 class ScaleAudio {
     
     var avFileType:AVFileType?
+    
+    var progress:((Float, String) -> ()) = { value,_ in print("progress = \(value)") }
         
     func audioReader(asset:AVAsset, outputSettings: [String : Any]?) -> (audioTrack:AVAssetTrack?, audioReader:AVAssetReader?, audioReaderOutput:AVAssetReaderTrackOutput?) {
         
@@ -144,7 +146,7 @@ class ScaleAudio {
         return nil
     }
     
-    func readAndScaleAudioSamples(asset:AVAsset, factor:Double, singleChannel:Bool, progress: @escaping (Float, String) -> ()) -> (Int, Int, CMAudioFormatDescription?, [Int16]?)? {
+    func readAndScaleAudioSamples(asset:AVAsset, factor:Double, singleChannel:Bool) -> (Int, Int, CMAudioFormatDescription?, [Int16]?)? {
         
         progress(0, "Reading audio:")
         
@@ -207,12 +209,12 @@ class ScaleAudio {
             }
         }
         
-        let scaledAudioSamples = scaleAudioSamples(audioSamples, factor: factor, progress:progress)
+        let scaledAudioSamples = scaleAudioSamples(audioSamples, factor: factor)
         
         return (bufferSize, channelCount, formatDescription, scaledAudioSamples)
     }
     
-    func interleave_arrays(_ arrays:[[Int16]], progress: @escaping (Float, String) -> ()) -> [Int16]? {
+    func interleave_arrays(_ arrays:[[Int16]]) -> [Int16]? {
                 
         progress(0, "Interleaving:")
         
@@ -257,7 +259,7 @@ class ScaleAudio {
         return interleaved 
     }
     
-    func scaleAudioSamples(_ audioSamples:[[Int16]], factor:Double, progress: @escaping (Float, String) -> ()) -> [Int16]? {
+    func scaleAudioSamples(_ audioSamples:[[Int16]], factor:Double) -> [Int16]? {
                 
         var scaledAudioSamplesChannels:[[Int16]] = []
         
@@ -273,7 +275,7 @@ class ScaleAudio {
             scaledAudioSamplesChannels.append(audioSamplesChannel.scaleToD(length: length, smoothly: true)) 
         }
         
-        return interleave_arrays(scaledAudioSamplesChannels, progress:progress)
+        return interleave_arrays(scaledAudioSamplesChannels)
     }
     
         // multi channel
@@ -319,7 +321,7 @@ class ScaleAudio {
         return sampleBuffer
     }
     
-    func sampleBuffersForSamples(bufferSize:Int, audioSamples:[Int16], channelCount:Int, formatDescription:CMAudioFormatDescription, progress: @escaping (Float, String) -> ()) -> [CMSampleBuffer?] {
+    func sampleBuffersForSamples(bufferSize:Int, audioSamples:[Int16], channelCount:Int, formatDescription:CMAudioFormatDescription) -> [CMSampleBuffer?] {
         
         progress(0, "Preparing Samples:")
                 
@@ -340,7 +342,7 @@ class ScaleAudio {
         return sampleBuffers
     }
     
-    func saveSampleBuffersToFile(_ sampleBuffers:[CMSampleBuffer?], formatDescription:CMAudioFormatDescription, destinationURL:URL, progress: @escaping (Float, String) -> (), completion: @escaping (Bool, String?) -> ())  {
+    func saveSampleBuffersToFile(_ sampleBuffers:[CMSampleBuffer?], formatDescription:CMAudioFormatDescription, destinationURL:URL, completion: @escaping (Bool, String?) -> ())  {
         
         progress(0, "Writing Samples:")
                 
@@ -431,7 +433,7 @@ class ScaleAudio {
                 index += 1
                 
                 let percent = (Float(index) / Float(nbrSamples))
-                progress(percent, "Writing Samples \(Int(percent * 100))%:")
+                self.progress(percent, "Writing Samples \(Int(percent * 100))%:")
                 
                 if index == nbrSamples {
                     audioWriterInput.markAsFinished()
@@ -442,11 +444,15 @@ class ScaleAudio {
         }
     }
     
-    func scaleAudio(asset:AVAsset, factor:Double, singleChannel:Bool, destinationURL:URL, avFileType:AVFileType, progress: @escaping (Float, String) -> (), completion: @escaping (Bool, String?) -> ())  {
+    func scaleAudio(asset:AVAsset, factor:Double, singleChannel:Bool, destinationURL:URL, avFileType:AVFileType, progress:((Float, String) -> ())? = nil, completion: @escaping (Bool, String?) -> ())  {
         
         self.avFileType = avFileType
         
-        guard let (bufferSize, channelCount, formatDescription, audioSamples) = readAndScaleAudioSamples(asset: asset, factor: factor, singleChannel: singleChannel, progress:progress) else {
+        if let progress = progress {
+            self.progress = progress 
+        }
+        
+        guard let (bufferSize, channelCount, formatDescription, audioSamples) = readAndScaleAudioSamples(asset: asset, factor: factor, singleChannel: singleChannel) else {
             completion(false, "Can't read audio samples")
             return
         }
@@ -461,8 +467,8 @@ class ScaleAudio {
             return
         }
         
-        let sampleBuffers = sampleBuffersForSamples(bufferSize: bufferSize, audioSamples: audioSamples, channelCount:channelCount, formatDescription: formatDescription, progress:progress)
+        let sampleBuffers = sampleBuffersForSamples(bufferSize: bufferSize, audioSamples: audioSamples, channelCount:channelCount, formatDescription: formatDescription)
         
-        saveSampleBuffersToFile(sampleBuffers, formatDescription: formatDescription, destinationURL: destinationURL, progress: progress, completion: completion)
+        saveSampleBuffersToFile(sampleBuffers, formatDescription: formatDescription, destinationURL: destinationURL, completion: completion)
     }
 }
