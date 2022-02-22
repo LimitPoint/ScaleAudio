@@ -404,6 +404,30 @@ class ScaleAudio {
         }
     }
     
+    /**
+     Scales all channels in time domain of an audio file into another multi-channel audio file.
+     
+     Scaling audio is performed in 3 steps using AVFoundation:
+     
+     1. Read the audio samples of all channels of an audio file, scale all and interleave into an Array of [Int16]
+     2. Create an array of sample buffers [CMSampleBuffer] for the array of interleaved scaled audio samples
+     3. Write the scaled sample buffers in [CMSampleBuffer] to a file
+     
+     - Parameter asset: AVAsset - The AVAsset for the audio file to be scaled.
+     
+     - Parameter factor: Double - A scale factor < 1 slows down the audio, a factor > 1 speeds it up. For example if the audio is originally 10 seconds long and the scale factor is 2 then the scaled audio will be 20 seconds long. If factor is 0.5 then scaled audio will be 5 seconds long.
+     
+     - Parameter singleChannel: Bool - The AVAssetReader that reads the file can deliver the audio data interleaved with alternating samples from each channel (singleChannel = false) or as a single merged channel (singleChannel = true).
+     
+     - Parameter destinationURL: URL - A URL that specifies the location for the output file. The extension chosen for this URL should be compatible with the next argument for file type.
+     
+     - Parameter avFileType: AVFileType - An AVFileType for the desired file type that should be compatible with the previous argument for file extension.
+     
+     - Parameter progress: An optional handler that is periodically executed to send progress messages and values.
+     
+     - Parameter completion: A handler that is executed when the operation has completed to send a message of success or not.
+     
+     */    
     func scaleAudio(asset:AVAsset, factor:Double, singleChannel:Bool, destinationURL:URL, avFileType:AVFileType, progress:((Double, String) -> ())? = nil, completion: @escaping (Bool, String?) -> ())  {
         
         self.avFileType = avFileType
