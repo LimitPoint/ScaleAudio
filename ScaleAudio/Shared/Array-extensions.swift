@@ -29,9 +29,9 @@ extension Array where Element == Int16  {
         var control:[Double]
         
         if smoothly, length > self.count {
-            let denominator = Double(length) / Double(self.count - 1)
+            let denominator = Double(length - 1) / Double(self.count - 1)
             
-            control = (0...length).map {
+            control = (0...length - 1).map {
                 let x = Double($0) / denominator
                 return floor(x) + simd_smoothstep(0, 1, simd_fract(x))
             }
@@ -45,8 +45,9 @@ extension Array where Element == Int16  {
         }
         
             // for interpolation samples in app init
-        if control.count <= 16  { // limit to small arrays!
+        if control.count <= 25  { // limit to small arrays!
             print("control = \(control)")
+            print("length, control.count = \(length), \(control.count)")
         }
         
         var result = [Double](repeating: 0,

@@ -15,11 +15,12 @@ struct ScaleAudioApp: App {
         // interpolation samples for blog discussion on decimation
         let x:[Int16] = [3,5,1,8,4,56,33,4,77,42,84,25,12,6,13,15]
         
-        for i in 1...x.count {
+        for i in 1...x.count+4 {
             print(i)
             print(x)
-            let z = x.scaleToD(length: i, smoothly: true)
-            print(z)
+            let scaled = x.scaleToD(length: i, smoothly: true)
+            print(scaled)
+            print("scaled.count = \(scaled.count)")
             print("----")
         }
     }
