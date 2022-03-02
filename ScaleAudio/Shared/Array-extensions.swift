@@ -21,7 +21,7 @@ extension Array {
 extension Array where Element == Int16  {
     func scaleToD(length:Int, smoothly:Bool) -> [Element] {
         
-        guard length > 0 else {
+        guard length > 0, self.count > 0 else {
             return []
         }
         
@@ -50,10 +50,14 @@ extension Array where Element == Int16  {
             print("length, control.count = \(length), \(control.count)")
         }
         
-        var result = [Double](repeating: 0,
-                              count: length)
+        var result = [Double](repeating: 0, count: length)
         
-        let double_array = vDSP.integerToFloatingPoint(self, floatingPointType: Double.self)
+        var double_array = vDSP.integerToFloatingPoint(self, floatingPointType: Double.self)
+        
+            // See https://developer.apple.com/documentation/accelerate/1449775-vdsp_vlint
+            // 'the integer parts of the values in B must be greater than or equal to zero and less than or equal to M - 2.'
+            // Control points always end at self.count - 1, so pad the array with a 0 - doesn't matter what value because the fractional part is always zero
+        double_array.append(0)
         
         vDSP_vlintD(double_array,
                     control, stride,
