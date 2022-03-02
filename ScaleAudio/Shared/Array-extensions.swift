@@ -54,9 +54,8 @@ extension Array where Element == Int16  {
         
         var double_array = vDSP.integerToFloatingPoint(self, floatingPointType: Double.self)
         
-            // See https://developer.apple.com/documentation/accelerate/1449775-vdsp_vlint
-            // 'the integer parts of the values in B must be greater than or equal to zero and less than or equal to M - 2.'
-            // Control points always end at self.count - 1, so pad the array with a 0 - doesn't matter what value because the fractional part is always zero
+        // Since the control points form an increasing sequence (ramp) from `0` to `self.count - 1`, to preserve endpoints, the arrays needs to be padded at the end, as explained in documentation for vDSP_vlint:
+        // https://developer.apple.com/documentation/accelerate/1449775-vdsp_vlint
         double_array.append(0)
         
         vDSP_vlintD(double_array,
