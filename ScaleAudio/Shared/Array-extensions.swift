@@ -44,8 +44,10 @@ extension Array where Element == Int16  {
             vDSP_vgenD(&base, &end, &control, stride, vDSP_Length(length))
         }
         
-        // Ensure last control point is indeed `count-1` with no fractional part, since the calculations above can produce endpoints like `6.9999999999999991` when it should be `7`
-        control[control.count-1] = Double(self.count - 1)
+        // Ensure last control point, if it is not also the first, is indeed `count-1` with no fractional part. The calculations above can produce endpoints like `6.9999999999999991` when that is desired to be `7`
+        if control.count > 1 {
+            control[control.count-1] = Double(count - 1)
+        }
         
             // for interpolation samples in app init
         if control.count <= 25  { // limit to small experimental arrays
