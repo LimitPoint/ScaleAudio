@@ -89,6 +89,9 @@ class ScaleAudioObservable: ObservableObject  {
                 print("SUCCESS! - scaled URL = \(scaledURL)")
                 self.completionSound()
             }
+            else {
+                print("FAILED! - Failure Reason = \(failureReason ?? "No reason provided.")")
+            }
             DispatchQueue.main.async {
                 self.progress = 0
                 if success {
