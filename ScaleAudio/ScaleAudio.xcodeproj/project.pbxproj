@@ -37,6 +37,7 @@
 		CD895EA627B88CE80029F1A2 /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD895EA427B88CE80029F1A2 /* SliderView.swift */; };
 		CDD3051D27BF58ED00558D9C /* Array-extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD3051C27BF58ED00558D9C /* Array-extensions.swift */; };
 		CDD3051E27BF58ED00558D9C /* Array-extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD3051C27BF58ED00558D9C /* Array-extensions.swift */; };
+		CDF0A9D927E6D19C00E6A82A /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CDF0A9D827E6D19C00E6A82A /* Credits.rtf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		CD895EA127B84D170029F1A2 /* AVAsset-extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAsset-extensions.swift"; sourceTree = "<group>"; };
 		CD895EA427B88CE80029F1A2 /* SliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderView.swift; sourceTree = "<group>"; };
 		CDD3051C27BF58ED00558D9C /* Array-extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array-extensions.swift"; sourceTree = "<group>"; };
+		CDF0A9D827E6D19C00E6A82A /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 		CD421D9227B7156600B8769C /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				CDF0A9D827E6D19C00E6A82A /* Credits.rtf */,
 				CD421D9327B7156600B8769C /* macOS.entitlements */,
 			);
 			path = macOS;
@@ -173,7 +176,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1330;
 				ORGANIZATIONNAME = "Limit Point LLC";
 				TargetAttributes = {
 					CD421D8A27B7156600B8769C = {
@@ -221,6 +224,7 @@
 				CD421DB727B719F800B8769C /* Audio Files in Resources */,
 				CD421D9927B7156600B8769C /* Assets.xcassets in Resources */,
 				CD421DBA27B71A0700B8769C /* Echo.m4a in Resources */,
+				CDF0A9D927E6D19C00E6A82A /* Credits.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +452,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -476,6 +481,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
