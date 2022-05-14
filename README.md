@@ -35,19 +35,19 @@ func scaleAudio(asset:AVAsset, factor:Double, singleChannel:Bool, destinationURL
 ```
 Arguments:
 
-1. **asset:AVAsset** - The [AVAsset] for the audio file to be scaled.
+1. **asset: AVAsset** - The [AVAsset] for the audio file to be scaled.
 
-2. **factor:Double** - A scale factor < 1 slows down the audio, a factor > 1 speeds it up. For example if the audio is originally 10 seconds long and the scale factor is 2 then the scaled audio will be 20 seconds long. If factor is 0.5 then scaled audio will be 5 seconds long. 
+2. **factor: Double** - A scale factor < 1 slows down the audio, a factor > 1 speeds it up. For example if the audio is originally 10 seconds long and the scale factor is 2 then the scaled audio will be 20 seconds long. If factor is 0.5 then scaled audio will be 5 seconds long. 
 
-3. **singleChannel:Bool** - The [AVAssetReader] that reads the file can deliver the audio data interleaved with alternating samples from each channel (singleChannel = false) or as a single merged channel (singleChannel = true). 
+3. **singleChannel: Bool** - The [AVAssetReader] that reads the file can deliver the audio data interleaved with alternating samples from each channel (singleChannel = false) or as a single merged channel (singleChannel = true). 
 
-4. **destinationURL:URL** - A [URL] that specifies the location for the output file. The extension chosen for this URL should be compatible with the next argument for file type. 
+4. **destinationURL: URL** - A [URL] that specifies the location for the output file. The extension chosen for this URL should be compatible with the next argument for file type. 
 
-5. **avFileType:AVFileType** - An [AVFileType] for the desired file type that should be compatible with the previous argument for file extension.
+5. **avFileType: AVFileType** - An [AVFileType] for the desired file type that should be compatible with the previous argument for file extension.
 
-6. **progress** - An optional handler that is periodically executed to send progress messages and values.
+6. **progress: Closure** - An optional handler that is periodically executed to send progress messages and values.
 
-7. **completion** - A handler that is executed when the operation has completed to send a message of success or not.
+7. **completion: Closure** - A handler that is executed when the operation has completed to send a message of success or not.
 
 
 [App]: https://developer.apple.com/documentation/swiftui/app
