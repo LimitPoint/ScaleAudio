@@ -20,13 +20,13 @@ struct SliderView: View {
         VStack {
             Slider(
                 value: $scaleAudioObservable.factor,
-                in: 0.1...2
+                in: 0.1...5
             ) {
                 Text("Factor")
             } minimumValueLabel: {
                 Text("0.1")
             } maximumValueLabel: {
-                Text("2")
+                Text("5")
             } onEditingChanged: { editing in
                 isEditing = editing
             }
