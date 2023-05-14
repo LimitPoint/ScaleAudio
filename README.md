@@ -1,4 +1,4 @@
-![ScaleAudio](http://www.limit-point.com/assets/images/ScaleAudio.jpg)
+![ScaleAudio](https://www.limit-point.com/assets/images/ScaleAudio.jpg)
 # ScaleAudio.swift
 ## Scales all channels in time domain of an audio file into another multi-channel audio file
 
