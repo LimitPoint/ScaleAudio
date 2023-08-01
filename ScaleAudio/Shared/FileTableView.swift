@@ -26,11 +26,17 @@ struct FileTableViewRowView: View {
                 scaleAudioObservable.playAudioURL(file.url)
             })
                 .buttonStyle(BorderlessButtonStyle()) // need this or tapping one invokes both actions
+#if os(macOS)
+                .foregroundColor(.blue) 
+#endif
             
             Button("Scale", action: {
                 scaleAudioObservable.scaleAudioURL(url: file.url)
             })
                 .buttonStyle(BorderlessButtonStyle())
+#if os(macOS)
+                .foregroundColor(.blue) 
+#endif
         }
     }
 }
